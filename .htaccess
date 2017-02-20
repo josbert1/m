@@ -1,0 +1,25 @@
+RewriteEngine on
+RewriteRule ^inicio$ index.php?vista=inicio$1
+RewriteRule ^registro$ index.php?vista=registro$1
+RewriteRule ^apostillar$ index.php?vista=apostillar$1
+RewriteRule ^css/$ index.php?vista=inicio$1
+RewriteRule ^iniciar-sesion$ index.php?vista=login$1
+RewriteRule ^diplomado/([a-zA-Z0-9-]*)-([0-9-]*)$ index.php?vista=diplomado&id=$2
+RewriteRule ^perfil$ index.php?vista=perfil$1
+RewriteRule ^cerrar-sesion$ index.php?vista=cerrar$1
+RewriteRule ^404$ index.php?vista=404$1
+
+# Does the file exist?
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# Create an if-then-else construct by skipping 3 lines if we meant to go to the "else" stanza.
+RewriteRule .? - [S=3]
+
+# IF the file exists, then:
+    RewriteRule (.*\.gif) images.php?$1
+    RewriteRule (.*\.html) docs.php?$1
+    # Skip past the "else" stanza.
+    RewriteRule .? - [S=1]
+# ELSE...
+    RewriteRule (.*) index.php?vista=404
+# END
